@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>audio element</title>
+	<script src="Modernizr-2.0.6.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<audio id="audio" controls autoplay src="audio/Vivaldi.ogg">
+		Браузер не поддерживает воспроизведение звуковых медиафайлов
+	</audio>
+
+	<script>
+		if (!Modernizr.audio) {alert("Бразуер не поддерживает воспроизведение звуковых файлов");
+	    }
+		else {
+			var audio = document.getElementbyId("audio");
+			var res = audio.canPlayType('audio/ogg; codecs="vorbis"');
+			if (res) alert(res + "can play ogg vorbis");
+			else alert("no support for ogg vorbis");
+		}
+			
+	</script>
+		
+
+	
+</body>
+</html>
