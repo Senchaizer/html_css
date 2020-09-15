@@ -22,11 +22,16 @@ let game = {
         block: null
     },
     sounds: {
-        bump: null,
+        bump1: null,
     },
     init() {
         this.ctx = document.getElementById("mycanvas").getContext("2d");
+        this.setTextFont();
         this.setEvents();
+    },
+    setTextFont() {
+        this.ctx.font = "20px Arial";
+        this.ctx.fillStyle = "#FFFFFF";
     },
     setEvents() {
         window.addEventListener("keydown", e => {
@@ -101,13 +106,14 @@ let game = {
             if (block.active && this.ball.collide(block)) {
                 this.ball.bumpBlock(block);
                 this.addScore();
-                this.sounds.bump.play();
+                this.sounds.bump1.play();
             }
         }
     },
     collidePlatform() {
         if(this.ball.collide(this.platform)) {
             this.ball.bumpPlatform(this.platform);
+            this.sounds.bump1.play();
         }
     },
     run() {
@@ -125,6 +131,7 @@ let game = {
         this.ctx.drawImage(this.sprites.ball, 0, 0, this.ball.width, this.ball.height, this.ball.x, this.ball.y, this.ball.width, this.ball.height);
         this.ctx.drawImage(this.sprites.platform, this.platform.x, this.platform.y);
         this.renderBlocks();
+        this.ctx.fillText("Score: " + this.score, 15, 20);
     },
     renderBlocks() {
         for (let block of this.blocks) {
@@ -161,6 +168,15 @@ game.ball = {
     start() {
         this.dy = -this.velocity;
         this.dx = game.random(-this.velocity, this.velocity);
+        this.animate();
+    },
+    animate() {
+        setInterval(() => {
+            ++this.frame;
+            if (this.frame > 3) {
+                this.frame = 0;
+            }
+        }, 100);
     },
     move() {
         if (this.dy) {
@@ -199,15 +215,15 @@ game.ball = {
         if (ballLeft < worldLeft) {
             this.x = 0;
             this.dx = this.velocity;
-            game.sounds.bump.play();
+            game.sounds.bump1.play();
         } else if (ballRight > worldRight) {
             this.x = worldRight - this.width;
             this.dx = -this.velocity;
-            game.sounds.bump.play();
+            game.sounds.bump1.play();
         } else if (ballTop < worldTop) {
             this.y = 0;
             this.dy = this.velocity;
-            game.sounds.bump.play();
+            game.sounds.bump1.play();
         } else if (ballBottom > worldBottom) {
             game.end ("You Looser!");
         }
