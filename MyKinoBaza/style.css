@@ -37,7 +37,7 @@ h2 {
 	font-size: 140%;
 }
 
-a, a:hover{
+a, a:hover {
 	outline: none;
 	text-decoration: underline;
 	color: #aeb002;
@@ -65,7 +65,7 @@ ul li {
 
 .main, .logo, .menubar, .site_content, .footer {
 	margin-left: auto;
-	margin-rigth: auto;
+	margin-right:  auto;
 }
 
 .logo {
